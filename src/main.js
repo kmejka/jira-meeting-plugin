@@ -1,13 +1,26 @@
 import Flatpickr from 'flatpickr';
-import {get} from './client/meetings';
+import {create, get} from './client/meetings';
 
-const datePickerFrom = new Flatpickr(document.querySelector('.date-from'));
-const datePickerTo = new Flatpickr(document.querySelector('.date-to'));
+const options = {
+    minDate: 'today',
+    enableTime: true,
+    time_24hr: true,
+    utc: true
+};
+window.datePickerFrom = new Flatpickr(document.querySelector('.date-from'), options);
+window.datePickerTo = new Flatpickr(document.querySelector('.date-to'), options);
 
 document
     .querySelector('.create-meeting-button')
     .addEventListener('click', () => {
-        get();
-        console.log(datePickerFrom);
-        console.log(datePickerTo);
+        const from = new Date(datePickerFrom.input.value);
+        const to = new Date(datePickerTo.input.value);
+        create({
+            from,
+            to
+        });
     });
+
+document
+    .querySelector('.get-meetings-button')
+    .addEventListener('click', get);

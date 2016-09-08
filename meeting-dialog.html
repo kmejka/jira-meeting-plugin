@@ -1,12 +1,16 @@
 <html>
 <head>
-    <link rel="stylesheet" href="node_modules/flatpickr/dist/flatpickr.min.css" />
-    <script type="text/javascript">
-        // Your Client ID can be retrieved from your project in the Google
-        // Developer Console, https://console.developers.google.com
-        var CLIENT_ID = '404622519441-0rpk5ohn3diif619t7or42f7o28evep9.apps.googleusercontent.com';
+    <link rel="stylesheet" href="node_modules/flatpickr/dist/flatpickr.min.css"/>
+    <link rel="stylesheet" href="./meeting-dialog.css"/>
+    <style>
+        .container {
+            padding: 20px;
+        }
+    </style>
+    <script>
 
-        var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
+        var CLIENT_ID = '404622519441-0rpk5ohn3diif619t7or42f7o28evep9.apps.googleusercontent.com';
+        var SCOPES = ["https://www.googleapis.com/auth/calendar"];
 
         /**
          * Check if current user has authorized this application.
@@ -56,28 +60,31 @@
         function loadCalendarApi() {
             gapi.client.load('calendar', 'v3');
         }
-
     </script>
     <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
-
 </head>
 <body>
 <div id="authorize-div" style="display: none">
     <span>Authorize access to Google Calendar API</span>
-    <!--Button for the user to click to initiate auth sequence -->
     <button id="authorize-button" onclick="handleAuthClick(event)">
         Authorize
     </button>
 </div>
-<div id="container">
-    <div class="date-from-wrapper">
-        <input class="date-from" placeholder="date from"/>
-    </div>
-    <div class="date-to-wrapper">
-        <input class="date-to" placeholder="date to"/>
+
+<div class="container">
+    <div class="date-picker-wrapper">
+        <p class="date-from-wrapper">
+            <input class="flatpickr date-from" data-enable-time=true placeholder="Pick start date" />
+        </p>
+        <p class="date-to-wrapper">
+            <input class="flatpickr date-to" data-enable-time=true placeholder="Pick end date" >
+        </p>
     </div>
 
-    <button class="create-meeting-button">Create Meeting</button>
+    <div class="buttons-wrapper">
+        <button class="aui-button aui-button-primary add-spp-template create-meeting-button">Create Meeting</button>
+        <button class="aui-button aui-button-primary add-spp-template get-meetings-button">Get Meetings</button>
+    </div>
 </div>
 <script src="dist/main.js"></script>
 </body>
