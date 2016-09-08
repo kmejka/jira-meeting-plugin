@@ -62,6 +62,26 @@
         }
     </script>
     <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+    <script id="connect-loader" data-options="sizeToParent:true;">
+        (function() {
+            var getUrlParam = function (param) {
+                var codedParam = (new RegExp(param + '=([^&]*)')).exec(window.location.search)[1];
+                return decodeURIComponent(codedParam);
+            };
+
+            var baseUrl = getUrlParam('xdm_e') + getUrlParam('cp');
+            var options = document.getElementById('connect-loader').getAttribute('data-options');
+
+            var script = document.createElement("script");
+            script.src = baseUrl + '/atlassian-connect/all.js';
+
+            if(options) {
+                script.setAttribute('data-options', options);
+            }
+
+            document.getElementsByTagName("head")[0].appendChild(script);
+        })();
+    </script>
 </head>
 <body>
 <div id="authorize-div" style="display: none">
@@ -83,7 +103,6 @@
 
     <div class="buttons-wrapper">
         <button class="aui-button aui-button-primary add-spp-template create-meeting-button">Create Meeting</button>
-        <button class="aui-button aui-button-primary add-spp-template get-meetings-button">Get Meetings</button>
     </div>
 </div>
 <script src="dist/main.js"></script>

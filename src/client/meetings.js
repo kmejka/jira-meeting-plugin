@@ -33,9 +33,8 @@ export function create(options) {
     console.log('Create meetings');
 
     const event = {
-        'summary': 'Google I/O 2015',
-        'location': '800 Howard St., San Francisco, CA 94103',
-        'description': 'A chance to hear more about Google\'s developer products.',
+        'summary': options.summary,
+        'description': options.description,
         'start': {
             'dateTime': options.from,
             'timeZone': 'Europe/Warsaw'
@@ -44,17 +43,10 @@ export function create(options) {
             'dateTime': options.to,
             'timeZone': 'Europe/Warsaw'
         },
-        'recurrence': [
-            'RRULE:FREQ=DAILY;COUNT=2'
-        ],
-        'attendees': [
-            {'email': 'krzysztof.mejka@spartez.com'},
-            {'email': 'michal.jezierski@spartez.com'}
-        ],
+        'attendees': options.attendees,
         'reminders': {
             'useDefault': false,
             'overrides': [
-                {'method': 'email', 'minutes': 24 * 60},
                 {'method': 'popup', 'minutes': 10}
             ]
         }

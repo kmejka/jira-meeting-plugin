@@ -1,5 +1,7 @@
 import Flatpickr from 'flatpickr';
-import {create, get} from './client/meetings';
+import {create} from './client/meetings';
+import {getIssue} from './client/watchers';
+import {getIssueWatchers} from './client/watchers';
 
 const options = {
     minDate: 'today',
@@ -7,20 +9,23 @@ const options = {
     time_24hr: true,
     utc: true
 };
-window.datePickerFrom = new Flatpickr(document.querySelector('.date-from'), options);
-window.datePickerTo = new Flatpickr(document.querySelector('.date-to'), options);
+
+const datePickerFrom = new Flatpickr(document.querySelector('.date-from'), options);
+const datePickerTo = new Flatpickr(document.querySelector('.date-to'), options);
 
 document
     .querySelector('.create-meeting-button')
     .addEventListener('click', () => {
-        const from = new Date(datePickerFrom.input.value);
-        const to = new Date(datePickerTo.input.value);
-        create({
-            from,
-            to
+        Promise.all([getIssue(), getIssueWatchers()]).then((params) => {
+            const issue = params[0];
+            const watchers = params[1];
+
+            create({
+                summary: `[${issue.key}] ${issue.fields.summary}`,
+                description: issue.fields.description,
+                attendees: watchers.watchers.map((watcher) => ({email: watcher.emailAddress})),
+                from: new Date(datePickerFrom.input.value),
+                to: new Date(datePickerTo.input.value)
+            })
         });
     });
-
-document
-    .querySelector('.get-meetings-button')
-    .addEventListener('click', get);
