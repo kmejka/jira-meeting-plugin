@@ -1,3 +1,5 @@
 .idea/
 node_modules/
 kmejka-notes.md
+*.log
+dist/
