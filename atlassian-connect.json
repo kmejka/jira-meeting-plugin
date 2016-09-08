@@ -9,13 +9,16 @@
     "url": "https://spartez.com/",
     "icon": "/favicon.ico"
   },
+  "authentication": {
+    "type": "none"
+  },
   "apiVersion": 1,
   "modules": {
     "dialogs": [
       {
         "url": "/meeting-dialog.html",
         "options": {
-          "size": "small",
+          "size": "medium",
           "header": {
             "value": "Choose meeting date"
           }
