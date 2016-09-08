@@ -1,0 +1,28 @@
+{
+     "name": "Hello World",
+     "description": "Atlassian Connect add-on",
+     "key": "com.example.myaddon",
+     "baseUrl": "https://10bbd204.ngrok.io/",
+     "icon": "/favicon.ico",
+     "vendor": {
+         "name": "Example, Inc.",
+         "url": "https://developer.atlassian.com/",
+         "icon": "/favicon.ico"
+     },
+     "authentication": {
+         "type": "none"
+     },
+     "apiVersion": 1,
+     "modules": {
+         "generalPages": [
+             {
+                 "url": "/helloworld.html",
+                 "key": "hello-world",
+                 "location": "com.atlassian.jira.jira-board-plugin:board-sidebar-link",
+                 "name": {
+                     "value": "Greeting"
+                 }
+             }
+         ]
+     }
+ }
