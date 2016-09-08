@@ -2,7 +2,7 @@
   "name": "Jira Meeting plugin",
   "description": "Jira plugin to schedule meetings",
   "key": "com.spartez.jira-meeting",
-  "baseUrl": "https://35344f7f.ngrok.io",
+  "baseUrl": "https://b47961cd.ngrok.io",
   "icon": "/favicon.ico",
   "vendor": {
     "name": "Michu & Krzychu",
