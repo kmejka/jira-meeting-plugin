@@ -1,6 +1,6 @@
 import Flatpickr from 'flatpickr';
 import {createMeetingRequest} from './client/meetings';
-import {getIssue, getIssueWatchers} from './client/jira';
+import {getIssue, getIssueWatchers, saveIssueMeetingData} from './client/jira';
 
 const options = {
     minDate: 'today',
@@ -18,16 +18,18 @@ document
         Promise.all([getIssue(), getIssueWatchers()]).then((params) => {
             const issue = params[0];
             const watchers = params[1];
+            const from = new Date(datePickerFrom.input.value);
 
             createMeetingRequest({
                 summary: `[${issue.key}] ${issue.fields.summary}`,
                 description: issue.fields.description,
                 attendees: watchers.watchers.map((watcher) => ({email: watcher.emailAddress})),
-                from: new Date(datePickerFrom.input.value),
+                from: from,
                 to: new Date(datePickerTo.input.value)
             }).then((response) => {
                 console.log('Event created', response.result);
                 console.log('Event created', response.result.hangoutLink);
+                saveIssueMeetingData(from, response.result.hangoutLink).then((response) => {console.log(response)});
             });
         });
     });

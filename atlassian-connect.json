@@ -13,7 +13,9 @@
     "type": "none"
   },
   "scopes": [
-    "READ"
+    "read",
+    "write",
+    "admin"
   ],
   "apiVersion": 1,
   "modules": {
@@ -44,6 +46,28 @@
         "name": {
           "value": "Schedule a meeting"
         }
+      }
+    ],
+    "jiraIssueFields": [
+      {
+        "key": "meeting-date-field",
+        "name": {
+          "value": "Meeting date"
+        },
+        "description": {
+          "value": "Meeting start date"
+        },
+        "type": "string"
+      },
+      {
+        "key": "meeting-hangout-link",
+        "name": {
+          "value": "Meeting hangout link"
+        },
+        "description": {
+          "value": "Hangout link"
+        },
+        "type": "string"
       }
     ]
   }
