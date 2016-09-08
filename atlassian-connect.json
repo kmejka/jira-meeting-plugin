@@ -1,28 +1,44 @@
 {
-     "name": "Hello World",
-     "description": "Atlassian Connect add-on",
-     "key": "com.example.myaddon",
-     "baseUrl": "https://10bbd204.ngrok.io/",
-     "icon": "/favicon.ico",
-     "vendor": {
-         "name": "Example, Inc.",
-         "url": "https://developer.atlassian.com/",
-         "icon": "/favicon.ico"
-     },
-     "authentication": {
-         "type": "none"
-     },
-     "apiVersion": 1,
-     "modules": {
-         "generalPages": [
-             {
-                 "url": "/helloworld.html",
-                 "key": "hello-world",
-                 "location": "com.atlassian.jira.jira-board-plugin:board-sidebar-link",
-                 "name": {
-                     "value": "Greeting"
-                 }
-             }
-         ]
-     }
- }
+  "name": "Jira Meeting plugin",
+  "description": "Jira plugin to schedule meetings",
+  "key": "com.spartez.jira-meeting",
+  "baseUrl": "https://35344f7f.ngrok.io",
+  "icon": "/favicon.ico",
+  "vendor": {
+    "name": "Michu & Krzychu",
+    "url": "https://spartez.com/",
+    "icon": "/favicon.ico"
+  },
+  "apiVersion": 1,
+  "modules": {
+    "dialogs": [
+      {
+        "url": "/meeting-dialog.html",
+        "options": {
+          "size": "small",
+          "header": {
+            "value": "Choose meeting date"
+          }
+        },
+        "key": "meeting-dialog"
+      }
+    ],
+    "webItems": [
+      {
+        "location": "jira.issue.tools",
+        "context": "addon",
+        "weight": 200,
+        "target": {
+          "type": "dialogmodule",
+          "options": {
+            "key": "meeting-dialog"
+          }
+        },
+        "key": "meeting-button",
+        "name": {
+          "value": "Schedule a meeting"
+        }
+      }
+    ]
+  }
+}
