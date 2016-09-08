@@ -29,7 +29,7 @@ export function get() {
     });
 }
 
-export function create(options) {
+export function createMeetingRequest(options) {
     console.log('Create meetings');
 
     const event = {
@@ -52,12 +52,8 @@ export function create(options) {
         }
     };
 
-    const request = gapi.client.calendar.events.insert({
+    return gapi.client.calendar.events.insert({
         'calendarId': 'primary',
         'resource': event
-    });
-
-    request.execute(function(event) {
-        console.log('Event created', event);
     });
 }
