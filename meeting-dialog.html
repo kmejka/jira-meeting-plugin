@@ -1,5 +1,6 @@
 <html>
 <head>
+    <link rel="stylesheet" href="node_modules/flatpickr/dist/flatpickr.min.css" />
     <script type="text/javascript">
         // Your Client ID can be retrieved from your project in the Google
         // Developer Console, https://console.developers.google.com
@@ -106,7 +107,7 @@
 
     </script>
     <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
-    <script src="dist/main.js"></script>
+
 </head>
 <body>
 <div id="authorize-div" style="display: none">
@@ -117,5 +118,16 @@
     </button>
 </div>
 <pre id="output"></pre>
+<div id="container">
+    <div class="date-from-wrapper">
+        <input class="date-from" placeholder="date from"/>
+    </div>
+    <div class="date-to-wrapper">
+        <input class="date-to" placeholder="date to"/>
+    </div>
+
+    <button class="create-meeting-button">Create Meeting</button>
+</div>
+<script src="dist/main.js"></script>
 </body>
 </html>
