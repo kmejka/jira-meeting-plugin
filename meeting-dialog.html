@@ -6,6 +6,13 @@
         .container {
             padding: 20px;
         }
+
+        .hidden {
+            display: none;
+        }
+        .authorize-button-wrapper {
+            margin-top: 20px;
+        }
     </style>
     <script>
 
@@ -16,6 +23,7 @@
          * Check if current user has authorized this application.
          */
         function checkAuth() {
+            console.log("checkAuth");
             gapi.auth.authorize(
                     {
                         'client_id': CLIENT_ID,
@@ -30,15 +38,16 @@
          * @param {Object} authResult Authorization result.
          */
         function handleAuthResult(authResult) {
-            var authorizeDiv = document.getElementById('authorize-div');
+            console.log("handle auth result");
+            var authorizeDiv = document.querySelector('.authorize-wrapper');
             if (authResult && !authResult.error) {
-                // Hide auth UI, then load client library.
-                authorizeDiv.style.display = 'none';
+                console.log("handle auth result, ok");
+                authorizeDiv.classList.add('hidden');
+                document.querySelector('.date-picker-wrapper').classList.remove('hidden');
                 loadCalendarApi();
             } else {
-                // Show auth UI, allowing the user to initiate authorization by
-                // clicking authorize button.
-                authorizeDiv.style.display = 'inline';
+                console.log("handle auth result, not ok");
+                authorizeDiv.classList.remove('hidden');
             }
         }
 
@@ -48,6 +57,7 @@
          * @param {Event} event Button click event.
          */
         function handleAuthClick(event) {
+            console.log("handle auth click");
             gapi.auth.authorize(
                     {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
                     handleAuthResult);
@@ -58,27 +68,53 @@
          * Load Google Calendar client library.
          */
         function loadCalendarApi() {
+            console.log("load calendar api");
             gapi.client.load('calendar', 'v3');
         }
     </script>
     <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
     <script src="lib/all.js"></script>
+    <script id="connect-loader" data-options="sizeToParent:true;">
+        (function () {
+            var getUrlParam = function (param) {
+                var codedParam = (new RegExp(param + '=([^&]*)')).exec(window.location.search)[1];
+                return decodeURIComponent(codedParam);
+            };
+
+            var baseUrl = getUrlParam('xdm_e') + getUrlParam('cp');
+            var options = document.getElementById('connect-loader').getAttribute('data-options');
+
+            var script = document.createElement("script");
+            script.src = baseUrl + '/atlassian-connect/all.js';
+
+            if (options) {
+                script.setAttribute('data-options', options);
+            }
+
+            document.getElementsByTagName("head")[0].appendChild(script);
+        })();
+    </script>
 </head>
 <body>
-<div id="authorize-div" style="display: none">
-    <span>Authorize access to Google Calendar API</span>
-    <button id="authorize-button" onclick="handleAuthClick(event)">
-        Authorize
-    </button>
-</div>
 
 <div class="container">
-    <div class="date-picker-wrapper">
+
+
+    <div class="authorize-wrapper hidden">
+        Please authorize JIRA to use Google Calendar
+        <div class="authorize-button-wrapper">
+            <button class="aui-button aui-button-primary" onclick="handleAuthClick(event)">
+                Authorize
+            </button>
+        </div>
+    </div>
+
+    <div class="date-picker-wrapper hidden">
         <p class="date-from-wrapper">
-            <input class="flatpickr date-from" data-enable-time=true placeholder="Pick start date" />
+            <input class="flatpickr date-from" data-enable-time=true placeholder="Pick start date"/>
         </p>
         <p class="date-to-wrapper">
-            <input class="flatpickr date-to" data-enable-time=true placeholder="Pick end date" >
+            <input class="flatpickr date-to" data-enable-time=true placeholder="Pick end date">
         </p>
     </div>
 </div>

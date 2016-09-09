@@ -3,7 +3,7 @@ export function saveIssueMeetingData(startDate, hangoutLink) {
         const data = {
             fields: {
                 'com.spartez.jira-meeting__meeting-date-field': startDate,
-                'com.spartez.jira-meeting__meeting-hangout-link': `<a href='${hangoutLink}'>Go to hangout</a>`
+                'com.spartez.jira-meeting__meeting-hangout-link': `<a href='${hangoutLink}' target='_blank'>Go to hangout</a>`
             }
         };
         request({
