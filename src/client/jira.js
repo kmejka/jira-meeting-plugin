@@ -12,8 +12,7 @@ export function saveIssueMeetingData(startDate, hangoutLink) {
             contentType: 'application/json',
             data: JSON.stringify(data),
 
-            success: function (response) {
-                response = JSON.parse(response);
+            success: function(response) {
                 return resolve(response);
             },
             error: function (response) {

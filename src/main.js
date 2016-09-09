@@ -12,9 +12,9 @@ const options = {
 const datePickerFrom = new Flatpickr(document.querySelector('.date-from'), options);
 const datePickerTo = new Flatpickr(document.querySelector('.date-to'), options);
 
-document
-    .querySelector('.create-meeting-button')
-    .addEventListener('click', () => {
+AP.require(['dialog'], (dialog) => {
+    console.log('inside dialog');
+    dialog.getButton('submit').bind(() => {
         Promise.all([getIssue(), getIssueWatchers()]).then((params) => {
             const issue = params[0];
             const watchers = params[1];
@@ -31,6 +31,9 @@ document
                 console.log('Event created', response.result);
                 console.log('Event created', response.result.hangoutLink);
                 saveIssueMeetingData(from, response.result.hangoutLink).then((response) => {console.log(response)});
+            }).then(() => {
+                dialog.close();
             });
         });
     });
+});
